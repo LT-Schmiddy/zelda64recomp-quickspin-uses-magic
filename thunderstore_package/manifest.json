@@ -1,0 +1,7 @@
+{
+    "name": "mm_quickspins_use_magic",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/LT-Schmiddy/zelda64recomp-quickspin-uses-magic",
+    "description": "Quick-spins now require magic to use.",
+    "dependencies": []
+}
