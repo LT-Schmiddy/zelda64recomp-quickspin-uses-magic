@@ -9,44 +9,16 @@
 #include "overlays/actors/ovl_Eff_Dust/z_eff_dust.h"
 #include "assets/objects/gameplay_keep/gameplay_keep.h"
 
-#define QUICKSPIN_MAGIC_USAGE 4
+#define QUICKSPIN_MAGIC_USAGE 2 * recomp_get_config_u32("magic_use_multiplier")
 
 #define FLAGS (ACTOR_FLAG_UPDATE_CULLING_DISABLED)
 #define ENMTHUNDER_TYPE_MAX 4
 
 extern ActorProfile En_M_Thunder_Profile;
 
-// // The originals are never written to, so a duplicating is fine for now:
-// static ColliderCylinderInit sCylinderInit = {
-//     {
-//         COL_MATERIAL_NONE,
-//         AT_ON | AT_TYPE_PLAYER,
-//         AC_NONE,
-//         OC1_NONE,
-//         OC2_TYPE_1,
-//         COLSHAPE_CYLINDER,
-//     },
-//     {
-//         ELEM_MATERIAL_UNK2,
-//         { 0x01000000, 0x00, 0x00 },
-//         { 0xF7CFFFFF, 0x00, 0x00 },
-//         ATELEM_ON | ATELEM_SFX_NONE,
-//         ACELEM_ON,
-//         OCELEM_ON,
-//     },
-//     { 200, 200, 0, { 0, 0, 0 } },
-// };
-
+// Imported Statics:
 extern ColliderCylinderInit En_M_Thunder_CylinderInit;
-ColliderCylinderInit* En_M_Thunder_CylinderInit2 = (ColliderCylinderInit*)0x8053AD30;
-
-// static u8 sDamages[] = {
-//     1, 2, 3, 4, // Regular
-//     1, 2, 3, 4, // Great Spin
-// };
-
 extern u8 En_M_Thunder_Damages[8];
-u8* En_M_Thunder_Damages2 = (u8*)0x8053AD5C;
 
 typedef enum {
     /* 0 */ ENMTHUNDER_SUBTYPE_SPIN_GREAT,
@@ -73,7 +45,6 @@ void Magic_Update(PlayState* play);
 s32 Player_CanSpinAttack(Player* this);
 
 static bool isMagicQuickspin = false;
-static bool lightsOn = false;
 void FixMagicCost(Actor* thisx, PlayState* play) {
     EnMThunder* this = (EnMThunder*)thisx;
     s16 cost = ENMTHUNDER_GET_MAGIC_COST(&this->actor);
@@ -87,39 +58,7 @@ void FixMagicCost(Actor* thisx, PlayState* play) {
     }
 }
 
-#define SEARCH_SIZE 100
 RECOMP_PATCH void EnMThunder_Init(Actor* thisx, PlayState* play) {
-    
-    /*
-    void* search_pointer = &En_M_Thunder_Profile;
-    for (int i = 0; i < SEARCH_SIZE; i++) {
-        recomp_printf("Memory at Address %04X: %01X -> %i", search_pointer, *((u8*)search_pointer), *((u8*)search_pointer));
-        if (search_pointer == &En_M_Thunder_Damages) {
-            recomp_printf(" (Target Hit)");
-        }
-        recomp_printf("\n");
-        search_pointer++;
-    }
-    recomp_printf("Values of En_M_Thunder_Damage (%04X):", &En_M_Thunder_Damages);
-    for (int i = 0; i < 8; i++) {
-        recomp_printf(" %01X,", En_M_Thunder_Damages[i]);
-    }
-    recomp_printf("\n");
-
-    recomp_printf("Values of En_M_Thunder_Damage2 (%04X):", En_M_Thunder_Damages2);
-    for (int i = 0; i < 8; i++) {
-        recomp_printf(" %01X,", En_M_Thunder_Damages2[i]);
-    }
-    recomp_printf("\n");
-
-    recomp_printf("Values of En_M_Thunder_CylinderInit (%04X):", &En_M_Thunder_CylinderInit);
-    recomp_printf(" %08X,", En_M_Thunder_CylinderInit);
-    recomp_printf("\n");
-
-    recomp_printf("Values of En_M_Thunder_CylinderInit2 (%04X):", En_M_Thunder_CylinderInit2);
-    recomp_printf(" %08X,", *En_M_Thunder_CylinderInit2);
-    recomp_printf("\n");*/
-
     s32 pad;
     EnMThunder* this = (EnMThunder*)thisx;
     Player* player = GET_PLAYER(play);
