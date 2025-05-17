@@ -1,11 +1,14 @@
-# Majora's Mask: Recompiled Mod Template
+# Quickspins Use Magic
 
-This is an example mod for Majora's Mask: Recompiled that can be used as a template for creating mods. It has a basic build system, headers, sample code, and a mod config toml.
+This is a small balance change I've wanted for a while now.
 
-Example code for using the recompui API to build ingame UI can be found in the `ui-example` branch.
+Due to some bizzare oversight, quick-spins do not cost any magic to perform, unlike regular spin-attacks.
+For those who have practiced the move to consistency, simply spamming quick-spins becomes the optimal strategy in most fights.
 
-### Writing mods
-See [this document](https://hackmd.io/fMDiGEJ9TBSjomuZZOgzNg) for an explanation of the modding framework, including how to write function patches and perform interop between different mods.
+This mod makes the move cost magic, like it's charged counterpart. Optionally, you can have quick-spins cost more magic than
+regular spin-attacks, a cost for quicker deployment of the move. The default amount is 2x.
+
+I'm of the opinion that this makes fighting in the game more dymanic and interesting, and is just more fun overall.
 
 ## Tools
 
