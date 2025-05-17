@@ -72,7 +72,7 @@ additional_files = [
 [[manifest.config_options]]
 id = "magic_use_multiplier"
 name = "Magic Use Mutliplier"
-description = "The magic use of a quick-spin is the damage of a normal spin-attack times this value."
+description = "The magic use of a quick-spin is the amount for a normal spin-attack times this value."
 type = "Number"
 min = 1
 max = 10
